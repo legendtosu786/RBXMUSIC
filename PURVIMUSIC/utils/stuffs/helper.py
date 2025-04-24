@@ -18,7 +18,7 @@ class Helper(object):
     
     HELP_ABOUT = '''
     **─────────────────────────
-❖ ʜєʏ ɪ'ϻ [ʜɪηᴧᴛᴧ](t.me/HinataMusicRobot) ᴧ ϻᴜsɪᴄ + ᴄʜᴧᴛ ʙσᴛ ғσʀ ᴛєʟєɢʀᴧϻ ɢʀσᴜᴘs / ᴄʜᴧηηєʟs
+❖ ʜєʏ ɪ'ϻ [ᴀʟɪsᴀ](t.me/AlisaMusicRobot) ᴧ ϻᴜsɪᴄ + ᴄʜᴧᴛ ʙσᴛ ғσʀ ᴛєʟєɢʀᴧϻ ɢʀσᴜᴘs / ᴄʜᴧηηєʟs
 ─────────────────────────
 ● ᴡʀɪᴛᴛєη ɪη ➥ [ᴩʏᴛʜση](https://www.python.org/)
 ● ᴅᴧᴛᴧʙᴧsє ➥ [ϻᴏηɢᴏ-ᴅʙ](https://www.mongodb.com/)
@@ -26,9 +26,9 @@ class Helper(object):
 ● ηᴏ ʟᴀɢ ɪssᴜєs ηᴏ ᴧᴅs ηᴏ ʙᴜɢs.
 ● ᴧᴅᴅ ϻє ηᴏᴡ ʙᴧʙʏ ɪɴ ʏᴏᴜʀ ɢʀσᴜᴘs.
 ─────────────────────────
-❖ υᴘᴅᴧᴛєs ᴄʜᴧηηєʟ ➥ [ᴘᴜʀᴠɪ-ʙσᴛs](https://t.me/PURVI_SUPPORT)
-❖ sυᴘᴘσʀᴛ ᴄʜᴧᴛ ➥ [ᴘᴜʀᴠɪ-ᴜᴘᴅᴧᴛєs](https://t.me/PURVI_UPDATES)
-❖ ʀєᴘσ ʟɪηᴋ ➥ [ᴄʟɪᴄᴋ-ʜєʀє](github.com/TEAMPURVI)
+❖ υᴘᴅᴧᴛєs ᴄʜᴧηηєʟ ➥ [ɪɴᴄʀɪᴄɪʙʟᴇ-ʙσᴛs](https://t.me/ZOYU_SUPPORT)
+❖ sυᴘᴘσʀᴛ ᴄʜᴧᴛ ➥ [ɪɴᴄʀɪᴄɪʙʟᴇ-ᴜᴘᴅᴧᴛєs](https://t.me/THE_INCRICIBLE)
+❖ ʀєᴘσ ʟɪηᴋ ➥ [ᴄʟɪᴄᴋ-ʜєʀє](github.com/mrtosumemon)
 ─────────────────────────
 ❖ ᴄʟɪᴄᴋ ση ᴛʜє ʜєʟᴩ ʙυᴛᴛση ᴛσ ɢєᴛ ɪηғσ
    ᴧʙσυᴛ ϻʏ ϻσᴅυʟєs ᴧηᴅ ᴄσϻϻᴧηᴅs...!!
@@ -164,7 +164,7 @@ class Helper(object):
 **ᴇxᴀᴍᴘʟᴇ -** `where is tajmahal`
 
 **๏ ɢʀᴏᴜᴘ ᴍᴇssᴀɢᴇ ᴀᴘɪ ʀᴇsᴘᴏɴᴄᴇ :-** sᴇɴᴅ ᴛᴇxᴛ ᴡɪᴛʜ ʙᴏᴛ ᴜsᴇʀɴᴀᴍᴇ
-**ᴇxᴀᴍᴘʟᴇ :-** `@HinataMusicRobot where is tajmahal`
+**ᴇxᴀᴍᴘʟᴇ :-** `@AlisaMusicRobot where is tajmahal`
 
 **ᴀɴʏ ɪssᴜsᴇ ᴄᴏɴᴛᴀᴄᴛ ᴏᴡɴᴇʀ**
 """
