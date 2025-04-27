@@ -1,16 +1,17 @@
 import os
 import re
 import textwrap
-
-from PURVIMUSIC import app
+import random
 
 import aiofiles
 import aiohttp
-from PIL import (Image, ImageDraw, ImageEnhance, ImageFilter,
-                 ImageFont, ImageOps)
+from PIL import Image, ImageDraw, ImageEnhance, ImageOps, ImageFilter, ImageFont
+from unidecode import unidecode
 from youtubesearchpython.__future__ import VideosSearch
 
+from Spy import app
 from config import YOUTUBE_IMG_URL
+
 
 def changeImageSize(maxWidth, maxHeight, image):
     widthRatio = maxWidth / image.size[0]
@@ -19,6 +20,20 @@ def changeImageSize(maxWidth, maxHeight, image):
     newHeight = int(heightRatio * image.size[1])
     newImage = image.resize((newWidth, newHeight))
     return newImage
+
+
+def clear(text):
+    list = text.split(" ")
+    title = ""
+    for i in list:
+        if len(title) + len(i) < 60:
+            title += " " + i
+    return title.strip()
+
+
+def get_random_color():
+    return (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255), 255)
+
 
 async def get_thumb(videoid):
     if os.path.isfile(f"cache/{videoid}.png"):
@@ -51,80 +66,95 @@ async def get_thumb(videoid):
         async with aiohttp.ClientSession() as session:
             async with session.get(thumbnail) as resp:
                 if resp.status == 200:
-                    f = await aiofiles.open(
-                        f"cache/thumb{videoid}.png", mode="wb"
-                    )
+                    f = await aiofiles.open(f"cache/thumb{videoid}.png", mode="wb")
                     await f.write(await resp.read())
                     await f.close()
 
         youtube = Image.open(f"cache/thumb{videoid}.png")
+        bg = Image.open(f"Spy/assets/dil.png")
         image1 = changeImageSize(1280, 720, youtube)
         image2 = image1.convert("RGBA")
-        background = image2.filter(filter=ImageFilter.BoxBlur(20))
+        background = image2.filter(filter=ImageFilter.BoxBlur(9))
         enhancer = ImageEnhance.Brightness(background)
-        background = enhancer.enhance(0.8)
+        background = enhancer.enhance(0.5)
+
+        image3 = changeImageSize(1280, 720, bg)
+        image5 = image3.convert("RGBA")
+        Image.alpha_composite(background, image5).save(f"cache/temp{videoid}.png")
 
         Xcenter = youtube.width / 2
         Ycenter = youtube.height / 2
-        x1 = Xcenter - 300
-        y1 = Ycenter - 300
-        x2 = Xcenter + 300
-        y2 = Ycenter + 300
+        x1 = Xcenter - 250
+        y1 = Ycenter - 250
+        x2 = Xcenter + 250
+        y2 = Ycenter + 250
+
         logo = youtube.crop((x1, y1, x2, y2))
-        logo.thumbnail((600, 600), Image.Resampling.LANCZOS)
-        logo = ImageOps.expand(logo, border=10, fill="white")
-        background.paste(logo, (340, 60))
+        logo.thumbnail((360, 360), Image.Resampling.LANCZOS)
+
+        border_size = 13
+        border_color = get_random_color()
+
+        bordered_logo = Image.new("RGBA", (logo.width + 2 * border_size, logo.height + 2 * border_size), (0, 0, 0, 0))
+        bordered_logo.paste(logo, (border_size, border_size))
+
+        draw = ImageDraw.Draw(bordered_logo)
+        draw.rectangle(
+            [(0, 0), (bordered_logo.width - 1, bordered_logo.height - 1)],
+            outline=border_color,
+            width=border_size
+        )
+
+        background.paste(bordered_logo, (750, 160), bordered_logo)
+        background.paste(image3, (0, 0), mask=image3)
 
         draw = ImageDraw.Draw(background)
-
-        title_font = ImageFont.truetype("SONALI/assets/font2.ttf", 80)
-        artist_font = ImageFont.truetype("SONALI/assets/font2.ttf", 40)
-        small_font = ImageFont.truetype("SONALI/assets/font2.ttf", 30)
-
-        title_wrapped = textwrap.wrap(title, width=20)
-        title_text = "\n".join(title_wrapped[:2])
+        font = ImageFont.truetype("Spy/assets/font2.ttf", 45)
+        font2 = ImageFont.truetype("Spy/assets/font2.ttf", 70)
+        arial = ImageFont.truetype("Spy/assets/font2.ttf", 30)
+        name_font = ImageFont.truetype("Spy/assets/font.ttf", 30)
+        para = textwrap.wrap(title, width=30)
+        j = 0
+        draw.text((5, 5), f"Alisamusic", fill="white", font=name_font)
+        for line in para:
+            if j == 1:
+                j += 1
+                draw.text(
+                    (60, 260),
+                    f"{line}",
+                    fill="white",
+                    stroke_width=1,
+                    stroke_fill="white",
+                    font=font,
+                )
+            if j == 0:
+                j += 1
+                draw.text(
+                    (60, 210),
+                    f"{line}",
+                    fill="white",
+                    stroke_width=1,
+                    stroke_fill="white",
+                    font=font,
+                )
         draw.text(
-            (340, 300),
-            title_text,
-            fill="yellow",
-            stroke_width=3,
-            stroke_fill="red",
-            font=title_font,
-            align="center"
+            (20, 675),
+            f"{channel} | {views[:23]}",
+            (255, 255, 255),
+            font=arial,
         )
-
         draw.text(
-            (340, 400),
-            f"Singer: {channel}",
-            fill="white",
-            stroke_width=1,
-            stroke_fill="black",
-            font=artist_font,
-        )
-
-        draw.rectangle((50, 500, 250, 550), fill="black")
-        draw.text(
-            (60, 510),
-            "VIDEO SONG",
-            fill="white",
-            font=small_font,
-        )
-        draw.polygon([(220, 510), (240, 525), (220, 540)], fill="red")
-
-        draw.rectangle((0, 700, 1280, 720), fill="black")
-        draw.text(
-            (10, 702),
+            (60, 400),
             "00:00",
-            fill="white",
-            font=small_font,
+            (255, 255, 255),
+            font=arial,
         )
         draw.text(
-            (1200, 702),
-            f"{duration}",
-            fill="white",
-            font=small_font,
+            (610, 400),
+            f"{duration[:23]}",
+            (255, 255, 255),
+            font=arial,
         )
-
         try:
             os.remove(f"cache/thumb{videoid}.png")
         except:
@@ -132,4 +162,5 @@ async def get_thumb(videoid):
         background.save(f"cache/{videoid}.png")
         return f"cache/{videoid}.png"
     except Exception as e:
+        print(e)
         return YOUTUBE_IMG_URL
