@@ -52,7 +52,7 @@ YT_API_KEY = "sparrow123"
 # ----------------------------------------------------------------
 UPSTREAM_REPO = getenv(
     "UPSTREAM_REPO",
-    "https://github.com/ppppprivate/PPALISA",
+    "https://github.com/legendtosu786/RBXMUSIC",
 )
 UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "main")
 GIT_TOKEN = getenv(
