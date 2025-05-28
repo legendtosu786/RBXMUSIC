@@ -48,7 +48,7 @@ HEROKU_API_KEY = getenv("HEROKU_API_KEY")
 # ----------------------------------------------------------------
 
 API_URL = getenv("API_URL", 'https://api.thequickearn.xyz') #youtube song url
-API_KEY = getenv("API_KEY", '30DxNexGenBotsc0db7b') # youtube song api key
+API_KEY = getenv("API_KEY", 'NxGBNexGenBots7ed2dc') # youtube song api key
 # ----------------------------------------------------------------
 # ----------------------------------------------------------------
 
